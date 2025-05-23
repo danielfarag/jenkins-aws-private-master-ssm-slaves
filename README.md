@@ -5,25 +5,7 @@ This project automates the deployment of a Jenkins environment on AWS EC2 instan
 **A core security principle of this setup is that all SSH ports are closed.** This means you cannot directly SSH into the Jenkins master or slave instance. Instead, all remote management and interaction with these instances **rely exclusively on AWS Systems Manager (SSM)**.
 
 Furthermore, **Agents cannot directly reach the Jenkins master** due to stringent security group constraints. All Jenkins agent communication is expected to leverage other protocols configured by the Ansible playbooks, ensuring a more secure, locked-down environment.
-
-
-## Architecture
-
-The project deploys the following AWS resources:
-
-* **VPC and Networking:** A dedicated Virtual Private Cloud (VPC) with public and private subnets, an Internet Gateway (IGW), and a NAT Gateway for outbound internet access from private subnets.
-* **EC2 Instances:**
-    * **Nginx Server:** A public EC2 instance acting as a reverse proxy for Jenkins. It's configured to listen on ports 80 (HTTP) and 443 (HTTPS - although SSL isn't configured in the provided Nginx playbook, the security group allows it).
-    * **Jenkins Master:** A private EC2 instance running the Jenkins CI/CD server. It's accessible via the Nginx reverse proxy.
-    * **Jenkins Slave:** A private EC2 instance intended to function as a Jenkins build agent.
-* **Security Groups:**
-    * `aws_security_group.nginx`: Allows inbound HTTP (80) and HTTPS (443) traffic from anywhere to the Nginx server.
-    * `aws_security_group.jenkins`: Allows inbound traffic on port 8080 (Jenkins UI) and 50000 (Jenkins agent communication) only from the Nginx server's security group. It also allows inbound HTTPS (443) from anywhere.
-    * `aws_security_group.slave`: Allows outbound internet access and inbound HTTPS (443) from anywhere (note: for a production setup, inbound rules from the Jenkins master for agent communication would be more restrictive).
-* **IAM Instance Profiles:** EC2 instances are configured with an IAM instance profile (`ssm_ec2_profile`) to allow AWS Systems Manager (SSM) Agent to run, enabling remote management without SSH keys.
-
 ---
-
 ## Project Structure
 
 The project is organized into the following directories:
@@ -141,6 +123,7 @@ The project deploys the following AWS resources:
     ```
     Navigate to `http://<YOUR_NGINX_PUBLIC_IP>` in your web browser and use the provided password to unlock Jenkins and complete the initial setup.
 
+    > ⚠️ **Important:** Ensure that port `50000` is open on the Jenkins controller (master) in order to use **JNLP (Java Web Start) agents**. This port is used for communication between Jenkins agents and the controller, and blocking it can prevent agents from connecting successfully.
 ---
 
 ## Makefile Commands
