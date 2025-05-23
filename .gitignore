@@ -1,0 +1,6 @@
+inventory
+password
+.vscode
+.terraform
+terraform.tfstate
+*.tfvars
