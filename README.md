@@ -125,7 +125,7 @@ The project deploys the following AWS resources:
     ```
     Navigate to `http://<YOUR_NGINX_PUBLIC_IP>` in your web browser and use the provided password to unlock Jenkins and complete the initial setup.
 
-    > ⚠️ **Important:** Ensure that port `50000` is open on the Jenkins controller (master) in order to use **JNLP (Java Web Start) agents**. This port is used for communication between Jenkins agents and the controller, and blocking it can prevent agents from connecting successfully.
+    > ⚠️ **Important:** Ensure that port `50000` is open on the Jenkins controller (gui master `security.agents`) in order to use **JNLP (Java Web Start) agents**. This port is used for communication between Jenkins agents and the controller, and blocking it can prevent agents from connecting successfully.
 ---
 
 ## Makefile Commands
