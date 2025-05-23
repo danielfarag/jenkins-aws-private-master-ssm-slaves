@@ -158,4 +158,5 @@ To destroy all the AWS resources created by this project, simply run:
 make clean
 ```
 This command will execute `terraform destroy --auto-approve` to de-provision all resources.
+
 ---
