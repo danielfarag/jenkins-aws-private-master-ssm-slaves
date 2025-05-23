@@ -5,7 +5,9 @@ This project automates the deployment of a Jenkins environment on AWS EC2 instan
 **A core security principle of this setup is that all SSH ports are closed.** This means you cannot directly SSH into the Jenkins master or slave instance. Instead, all remote management and interaction with these instances **rely exclusively on AWS Systems Manager (SSM)**.
 
 Furthermore, **Agents cannot directly reach the Jenkins master** due to stringent security group constraints. All Jenkins agent communication is expected to leverage other protocols configured by the Ansible playbooks, ensuring a more secure, locked-down environment.
+
 ---
+
 ## Project Structure
 
 The project is organized into the following directories:
