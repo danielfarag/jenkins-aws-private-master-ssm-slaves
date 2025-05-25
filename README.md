@@ -1,4 +1,4 @@
-# Automated Jenkins Environment with SSM / Nginx Reverse Proxy
+# Automated Jenkins Environment with SSM / Nginx Reverse Proxy (In-progress)
 
 This project automates the deployment of a Jenkins environment on AWS EC2 instances, complete with an Nginx reverse proxy to expose Jenkins on standard HTTP/HTTPS ports. Terraform is used for infrastructure provisioning, and Ansible handles the configuration and software installation.
 
