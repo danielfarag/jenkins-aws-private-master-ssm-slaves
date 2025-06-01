@@ -1,0 +1,48 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<slave>
+  <name>node-name</name>
+
+  <description>A simple JNLP agent for general build tasks</description>
+
+  <remoteFS>/home/ubuntu/jenkins</remoteFS>
+
+  <numExecutors>1</numExecutors>
+
+  <mode>NORMAL</mode>
+
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+
+  <launcher class="hudson.slaves.JNLPLauncher">
+    <webSocket>false</webSocket>
+  </launcher>
+
+  <nodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars class="linked-hash-map">
+        <entry>
+          <string>BUILD_ENVIRONMENT</string>
+          <string>PRODUCTION</string>
+        </entry>
+        <entry>
+          <string>JAVA_HOME</string>
+          <string>/usr/lib/jvm/java-11-openjdk-amd64</string>
+        </entry>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </nodeProperties>
+
+  <label>linux jnlp-agent build-server</label>
+
+  <host/>
+
+  <launchCmd/>
+
+  <temporaryOffline>false</temporaryOffline>
+
+  <offlineCause class="jenkins.model.CauseOfInterruption$UserInterruption">
+    <message>Agent is offline</message>
+  </offlineCause>
+
+  <offlineCauseReason class="jenkins.model.CauseOfInterruption$UserInterruption"/>
+
+</slave>
