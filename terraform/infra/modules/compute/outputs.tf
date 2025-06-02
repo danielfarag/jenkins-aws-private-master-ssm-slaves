@@ -14,6 +14,10 @@ output "jenkins_id" {
   value = aws_instance.jenkins.id
 }
 
-output "slave_id" {
-  value = aws_instance.slave.id
+output "slave_sg" {
+  value = aws_security_group.slave.id
+}
+
+output "iam_profile_name" {
+  value = aws_iam_instance_profile.ssm_ec2_profile.name
 }

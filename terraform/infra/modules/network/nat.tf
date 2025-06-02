@@ -8,5 +8,4 @@ resource "aws_nat_gateway" "nat" {
   tags = {
     "Name" = "NatGatway"
   }
-
 }

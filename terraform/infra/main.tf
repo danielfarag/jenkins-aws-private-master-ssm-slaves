@@ -11,6 +11,7 @@ module "compute" {
   vpc = module.network.vpc
   region = var.region
   availability_zone= var.availability_zone
+  nat = module.network.nat
 }
 
 module "storage" {

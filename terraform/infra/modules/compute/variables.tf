@@ -27,6 +27,12 @@ variable "private_subnet" {
   })
 }
 
+variable "nat" {
+  type = object({
+    id = string 
+  })
+}
+
 variable "region" {
   type = string
 }

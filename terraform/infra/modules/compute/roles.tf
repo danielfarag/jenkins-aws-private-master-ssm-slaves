@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ec2_ssm" {
-  name = "ec2_ssm"
+  name = "jenkins_ec2_ssm"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -15,7 +15,7 @@ resource "aws_iam_role" "ec2_ssm" {
   })
 
   tags = {
-    Name = "EC2 Assume SSM"
+    Name = "jenkins_EC2 Assume SSM"
   }
 }
 
@@ -26,8 +26,8 @@ resource "aws_iam_role_policy_attachment" "attach_ssm_ec2_managed" {
 }
 
 
-resource "aws_iam_policy" "s3_bucket" {
-  name        = "allow_s3_bucket_ssm"
+resource "aws_iam_policy" "custom_policies" {
+  name        = "allow_custom_policies_ssm"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -43,6 +43,17 @@ resource "aws_iam_policy" "s3_bucket" {
           "arn:aws:s3:::iti-ssm-bucket/*"
         ]
       },
+      {
+        Action = [
+          "ec2:DescribeTags",
+          "ec2:DescribeInstances",
+          "ssm:StartSession",
+          "ssm:TerminateSession"
+        ]
+        Effect   = "Allow"
+        Resource = [ "*" ]
+      },
+      
     ]
   })
 }
@@ -54,12 +65,12 @@ resource "aws_iam_role_policy_attachment" "attach_ssm_policy" {
 
 resource "aws_iam_role_policy_attachment" "attach_s3_policy" {
   role       = aws_iam_role.ec2_ssm.name
-  policy_arn = aws_iam_policy.s3_bucket.arn
+  policy_arn = aws_iam_policy.custom_policies.arn
 }
 
 
 
 resource "aws_iam_instance_profile" "ssm_ec2_profile" {
-  name = "ec2_profile"
+  name = "jenkins_ec2_profile"
   role = aws_iam_role.ec2_ssm.id
 }

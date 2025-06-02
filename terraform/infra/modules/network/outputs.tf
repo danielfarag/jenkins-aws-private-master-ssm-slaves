@@ -10,3 +10,7 @@ output "public_subnet" {
 output "private_subnet" {
   value = aws_subnet.private
 }
+
+output "nat" {
+  value = aws_nat_gateway.nat
+}
