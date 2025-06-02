@@ -1,1 +1,1 @@
-cat ./delete-node.groovy | java -jar jenkins-cli.jar -s "http://localhost:8080" -auth "node_generator:node_generator" groovy =
+cat /delete-node.groovy | java -jar /jenkins-cli.jar -s "http://localhost:8080" -auth "node_generator:node_generator" groovy =
